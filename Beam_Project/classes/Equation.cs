@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MathParser;
 
 namespace Beam_Project.classes
 {
     class Equation
     {
         public const int n = 1000; //iterations to integration
-        internal String equation { get; set; }
+        internal Sinusoid sines { get; set; }
+        internal Polynomial poly { get; set; }
         internal double start { get; set; }
         internal double finish { get; set; }
 
@@ -41,7 +41,7 @@ namespace Beam_Project.classes
             double inter_value = 0;
             double a = Eqn.start;
             double b = Eqn.finish;
-            Parser parser = new Parser("x");
+            var parser = new Parser("x");
             var parsingResult = parser.Parse(Eqn.equation);
             double f_a = parsingResult.Evaluate(a);
             double f_b = parsingResult.Evaluate(b);

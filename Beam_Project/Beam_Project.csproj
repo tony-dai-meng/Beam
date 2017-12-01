@@ -63,8 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Testing_parser.cs" />
     <Compile Include="classes\Beam.cs" />
+    <Compile Include="classes\Polynomial.cs" />
+    <Compile Include="classes\Sinusoid.cs" />
     <Compile Include="classes\D_force.cs" />
     <Compile Include="classes\Equation.cs" />
     <Compile Include="classes\Point_Force.cs" />
