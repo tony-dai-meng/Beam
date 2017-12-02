@@ -9,15 +9,14 @@ namespace Beam_Project.classes
     class Equation
     {
         public const int n = 1000; //iterations to integration
-        internal Sinusoid sines { get; set; }
+        internal Sinusoid sine { get; set; }
         internal Polynomial poly { get; set; }
-        internal double start { get; set; }
-        internal double finish { get; set; }
+        internal D_force d_force { get; set; }
 
-        public static Equation Copy(Equation Eqn)
+        private Equation Copy()
         {
             var Eqn_2 = new Equation();
-            Eqn_2.equation = String.Copy(Eqn.equation);
+            Eqn_2.sine = this.sine.Copy();
             Eqn_2.start = Eqn.start;
             Eqn_2.finish = Eqn.finish;
             return Eqn_2;
