@@ -20,5 +20,14 @@ namespace Beam_Project.classes
             New_PF.point = (D.start + D.finish) / 2;
             return New_PF;
         }
+
+        public D_force Copy()
+        {
+            var d_force = new D_force();
+            d_force.start = this.start;
+            d_force.finish = this.finish;
+            d_force.force_ratio = this.force_ratio;
+            return d_force;
+        }
     }
 }

@@ -8,40 +8,28 @@ namespace Beam_Project.classes
 {
     class Equation
     {
-        public const int n = 1000; //iterations to integration
+        public const int n = 3000; //iterations to integration
         internal Sinusoid sine { get; set; }
         internal Polynomial poly { get; set; }
         internal D_force d_force { get; set; }
 
         private Equation Copy()
         {
-            var Eqn_2 = new Equation();
-            Eqn_2.sine = this.sine.Copy();
-            Eqn_2.start = Eqn.start;
-            Eqn_2.finish = Eqn.finish;
-            return Eqn_2;
-        }
-        public static Point_Force DF2PF(Equation Eqn)
-        {
-            var PF = new Point_Force();
-            var Eqn_2 = Equation.Copy(Eqn);
-            Eqn_2.equation.Insert(0, "(");
-            Eqn_2.equation.Insert(Eqn.equation.Length - 1, ")*x");
-
-            PF.force = Integrate(Eqn);
-            PF.point = Integrate(Eqn_2)/PF.force;
-            return PF;
+            var Eqn = new Equation();
+            Eqn.sine = this.sine.Copy();
+            Eqn.d_force = this.d_force.Copy();
+            Eqn.poly = this.poly.Copy();
+            return Eqn;
         }
 
-        /*integration via the trapizoid rule with a fidelity of 1000*/
+        
+        /*integration via the trapizoid rule with a fidelity of 1000
         public static double Integrate(Equation Eqn)
         {
             double value;
             double inter_value = 0;
             double a = Eqn.start;
             double b = Eqn.finish;
-            var parser = new Parser("x");
-            var parsingResult = parser.Parse(Eqn.equation);
             double f_a = parsingResult.Evaluate(a);
             double f_b = parsingResult.Evaluate(b);
 
@@ -53,5 +41,6 @@ namespace Beam_Project.classes
             double result = (b - a) / n * (f_a / 2 + inter_value + f_b / 2);
             return result;
         }
+        */
     }
 }
