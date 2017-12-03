@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="classes\Beam.cs" />
+    <Compile Include="classes\Internal_force.cs" />
     <Compile Include="classes\Polynomial.cs" />
     <Compile Include="classes\Sinusoid.cs" />
     <Compile Include="classes\D_force.cs" />
