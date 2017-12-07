@@ -9,6 +9,6 @@ namespace Beam_Project.classes
     class Point_Force
     {
         internal double force { get; set; }
-        internal double point { get; set; }
+        internal double point_length { get; set; }
     }
 }

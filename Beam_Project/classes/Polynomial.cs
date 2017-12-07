@@ -10,15 +10,18 @@ namespace Beam_Project.classes
     {
         internal double coefficent;
         internal double order;
+        internal Polynomial(double coefficent,double order)
+        {
+            this.coefficent=coefficent;
+            this.order=order;
+        }
         internal double Evaluate(double value)
         {
             return coefficent * Math.Pow(value, order);
         }
         internal Polynomial Copy()
         {
-            var P = new Polynomial();
-            P.coefficent = this.coefficent;
-            P.order = this.order;
+            var P = new Polynomial(this.coefficent, this.order);
             return P;
         }
     }

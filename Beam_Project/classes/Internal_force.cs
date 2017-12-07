@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+enum Joint {roller, pin, wall};
+
+
 namespace Beam_Project.classes
 {
     class Internal_force
@@ -12,13 +15,13 @@ namespace Beam_Project.classes
         private double x_force { get; set; }
         private double y_force { get; set; }
 
-        internal Internal_force(char joint_type)
+        internal Internal_force(int joint_type)
         {
-            if(joint_type == 'r') //roller joint
+            if(joint_type == (int) Joint.roller) //roller joint
             {
                 this.moment = 0;
                 this.x_force = 0;
-            } else if (joint_type == 'p') //pin joint
+            } else if (joint_type == (int) Joint.pin) //pin joint
             {
                 this.moment = 0;
             }
