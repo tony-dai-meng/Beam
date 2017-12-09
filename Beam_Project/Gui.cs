@@ -15,6 +15,7 @@ namespace Beam_Project {
     private int DiagramHeightPadding;
     private int DiagramWidth;
     private int DiagramWidthPadding;
+    private TextBox lengthBox;
 
     private int AxisHeight() {
       return DiagramHeight - 2 * DiagramHeightPadding;
@@ -22,6 +23,10 @@ namespace Beam_Project {
 
     private int AxisWidth() {
       return DiagramWidth - 2 * DiagramWidthPadding;
+    }
+
+    private int SidebarWidth() {
+      return (int)this.Width - DiagramWidth;
     }
 
     public Gui() {
@@ -32,7 +37,7 @@ namespace Beam_Project {
 
       this.Height = DiagramHeight * 3 + DiagramHeightPadding;
       this.Width = 1000;
-      this.ResizeMode = System.Windows.ResizeMode.NoResize;
+      this.ResizeMode = ResizeMode.NoResize;
       this.Title = "Beams";
       this.Content = DrawAll();
       this.Show();
@@ -70,10 +75,10 @@ namespace Beam_Project {
         Height = 10,
         Width = AxisWidth()
       };
-      Canvas.SetBottom(beam, DiagramHeightPadding);
+      Canvas.SetTop(beam, AxisHeight());
       Canvas.SetLeft(beam, DiagramWidthPadding);
-      c.Children.Add(beam);
-
+ 
+     c.Children.Add(beam);
       return c;
     }
 
@@ -84,13 +89,21 @@ namespace Beam_Project {
       Rectangle xaxis = Xaxis();
       Canvas.SetBottom(xaxis, DiagramHeightPadding);
       Canvas.SetLeft(xaxis, DiagramWidthPadding);
-      c.Children.Add(xaxis);
 
       Rectangle yaxis = Yaxis();
       Canvas.SetBottom(yaxis, DiagramHeightPadding);
       Canvas.SetLeft(yaxis, DiagramWidthPadding);
-      c.Children.Add(yaxis);
 
+      TextBlock ylabel = new TextBlock {
+        Text = "Sheer force",
+        RenderTransform = new RotateTransform(270)
+      };
+      Canvas.SetBottom(ylabel, DiagramHeightPadding);
+      Canvas.SetLeft(ylabel, DiagramHeightPadding);
+
+      c.Children.Add(xaxis);
+      c.Children.Add(yaxis);
+      c.Children.Add(ylabel);
       return c;
     }
 
@@ -101,13 +114,21 @@ namespace Beam_Project {
       Rectangle xaxis = Xaxis();
       Canvas.SetTop(xaxis, DiagramHeight/2);
       Canvas.SetLeft(xaxis, DiagramWidthPadding);
-      c.Children.Add(xaxis);
 
       Rectangle yaxis = Yaxis();
       Canvas.SetBottom(yaxis, DiagramHeightPadding);
       Canvas.SetLeft(yaxis, DiagramWidthPadding);
-      c.Children.Add(yaxis);
 
+      TextBlock ylabel = new TextBlock {
+        Text = "Bending moment",
+        RenderTransform = new RotateTransform(270)
+      };
+      Canvas.SetBottom(ylabel, DiagramHeightPadding);
+      Canvas.SetLeft(ylabel, DiagramHeightPadding);
+
+      c.Children.Add(xaxis);
+      c.Children.Add(yaxis);
+      c.Children.Add(ylabel);
       return c;
     }
 
@@ -123,9 +144,35 @@ namespace Beam_Project {
       Canvas c = new Canvas {
         Background = Brushes.LightGray,
         Height = this.Height,
-        Width = this.Width - DiagramWidth
+        Width = SidebarWidth()
       };
       Canvas.SetRight(c, 0);
+
+      TextBlock lengthLabel = new TextBlock {
+        Text = "Beam length",
+        FontSize = 10
+      };
+      Canvas.SetTop(lengthLabel, AxisHeight());
+      Canvas.SetLeft(lengthLabel, SidebarWidth()/3.5);
+
+      lengthBox = new TextBox {
+        FontSize = 10,
+        Width = 50
+      };
+      Canvas.SetTop(lengthBox, AxisHeight());
+      Canvas.SetRight(lengthBox, SidebarWidth()/3.5);
+
+      Button calcBtn = new Button {
+        Content = "Calculate",
+        Width = SidebarWidth() - 20
+      };
+      calcBtn.Click += Calculate;
+      Canvas.SetBottom(calcBtn, 50);
+      Canvas.SetLeft(calcBtn, 10);
+
+      c.Children.Add(lengthLabel);
+      c.Children.Add(lengthBox);
+      c.Children.Add(calcBtn);
       return c;
     }
 
@@ -143,6 +190,21 @@ namespace Beam_Project {
         Height = AxisHeight(),
         Width = 1
       };
+    }
+
+    private bool IsNonnegativeString(String num) {
+      return num.All(x => char.IsDigit(x) || x == '.') &&
+             num.Count(x => x == '.') < 2 &&
+             num != "";
+    }
+
+    private void Calculate(Object sender, RoutedEventArgs e) {
+      String length = lengthBox.Text;
+      if(IsNonnegativeString(length)) {
+        MessageBox.Show("To be implemented.");
+      } else {
+        MessageBox.Show($"The value '{length}' is not a valid length.", "Error");
+      }
     }
 
   }
